@@ -26,5 +26,20 @@ namespace WebApi.Controllers
             return Ok(gotAllCourses);
         }
 
+        [HttpDelete]
+        [Route("delete/{courseID}")]
+        public async Task<ActionResult> DeleteCourseByIDAsync(int courseID)
+        {
+            var gotMessage = await Mediator.Send(new DeleteCourseCommand { CourseID = courseID });
+            return Ok(gotMessage);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<ActionResult> UpdateCourse([FromBody] UpdateCourseDTO _updateCourseDTO)
+        {
+            var gotMessage = await Mediator.Send(new UpdateCourseCommand { UpdateCourseDTO = _updateCourseDTO });
+            return Ok(gotMessage);
+        }
     }
 }

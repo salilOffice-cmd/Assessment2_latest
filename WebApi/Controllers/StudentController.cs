@@ -26,5 +26,21 @@ namespace WebApi.Controllers
             var gotAllStudents = await Mediator.Send(new GetAllStudentsQuery { });
             return Ok(gotAllStudents);
         }
+
+        [HttpDelete]
+        [Route("delete/{studentID}")]
+        public async Task<ActionResult> DeleteStudentByIDAsync(int studentID)
+        {
+            var gotMessage = await Mediator.Send(new DeleteStudentCommand { StudentID = studentID });
+            return Ok(gotMessage);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<ActionResult> UpdateStudent([FromBody] UpdateStudentDTO _updateStudentDTO)
+        {
+            var gotMessage = await Mediator.Send(new UpdateStudentCommand { UpdateStudentDTO = _updateStudentDTO });
+            return Ok(gotMessage);
+        }
     }
 }
